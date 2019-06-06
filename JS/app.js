@@ -39,12 +39,12 @@ function that calculates pecentage clicked and percentage displayed is called
 
 
 */
-var pics= [];
+var pics = [];
 
-
-function Pic(fileName){//requires string
+//Object Constructor
+function Pic(fileName, fileType){//requires string
   this.name = fileName;
-  this.filepath = `./image/${fileName}.jpg`;
+  this.filepath = `./image/${fileName}.${fileType}`;
   this.timesClicked;
   this.timesDisplayed;
   this.percentClicked;
@@ -52,19 +52,50 @@ function Pic(fileName){//requires string
   pics.push(this);
 }
 
-function displayPics(pic){
-  var div = document.getElementById('picDiv');
-  var img = document.createElement('img');
-  img.setAttribute('id', 'pic1');
-  img.setAttribute('src', `./images/${pic}`);
-  img.setAttribute('alt', `${pic}`);
-  div.appendChild(img);
-}
 
 
-new Pic('bag');
-new Pic('usb');
+
+
+
+// //adds an img to picDiv
+// function displayPics(fileName, fileType){
+//   var div = document.getElementById('picDiv');
+//   var img = document.createElement('img');
+//   img.setAttribute('id', 'pic1');
+//   img.setAttribute('src', `./images/${fileName}.${fileType}`);
+//   img.setAttribute('alt', `${fileName}`);
+//   div.appendChild(img);
+// }
+
+
+// for(var i = 0; i < pics.length; i++){
+
+// }
+
+new Pic('bag', 'jpg');
+new Pic('banana', 'jpg');
+new Pic('bathroom', 'jpg');
+new Pic('boots', 'jpg');
+new Pic('breakfast', 'jpg');
+new Pic('bubblegum', 'jpg');
+new Pic('chair', 'jpg');
+new Pic('cthulhu', 'jpg');
+new Pic('dog-duck', 'jpg');
+new Pic('dragon', 'jpg');
+new Pic('pen', 'jpg');
+new Pic('pet-sweep', 'jpg');
+new Pic('scissors', 'jpg');
+new Pic('shark', 'jpg');
+new Pic('sweep', 'jpg');
+new Pic('tauntaun', 'jpg');
+new Pic('unicorn', 'jpg');
+new Pic('usb', 'gif');
+new Pic('water-can', 'jpg');
+new Pic('wine-glass', 'jpg');
+
 console.log(pics);
 
-displayPics('bag.jpg');
-displayPics('usb.gif');
+// displayPics('bag.jpg');
+// displayPics('usb.gif');
+
+

@@ -39,10 +39,12 @@ function that calculates pecentage clicked and percentage displayed is called
 
 
 */
+var pics= [];
+
 
 function Pic(fileName){//requires string
   this.name = fileName;
-  this.filepath = `./image/${name}.jpg`;
+  this.filepath = `./image/${fileName}.jpg`;
   this.timesClicked;
   this.timesDisplayed;
   this.percentClicked;
@@ -50,16 +52,19 @@ function Pic(fileName){//requires string
   pics.push(this);
 }
 
-var pics= [];
-
-var div=document.createElement('div');
-div.setAttribute('id', 'picDiv' );
-
-var img = document.createElement('img');
-img.setAttribute('id', 'pic1');
-img.setAttribute('src', '');
-img.setAttribute('alt', '');
+function displayPics(pic){
+  var div = document.getElementById('picDiv');
+  var img = document.createElement('img');
+  img.setAttribute('id', 'pic1');
+  img.setAttribute('src', `./images/${pic}`);
+  img.setAttribute('alt', `${pic}`);
+  div.appendChild(img);
+}
 
 
 new Pic('bag');
+new Pic('usb');
 console.log(pics);
+
+displayPics('bag.jpg');
+displayPics('usb.gif');

@@ -64,19 +64,27 @@ function random(min, max){
 function populatePics(){
   for(var i = 0; i < 3; i++){
     var randomPic = random(0, pics.length-1);
+    console.log(`${randomPic} is random pic`);
+    console.log(`${currentPics} Is Current`);
     while(currentPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
+      console.log(`${randomPic} first while is random pic`);
+      while(lastPics.includes(randomPic)){
+        randomPic = random(0, pics.length-1);
+        console.log(`${randomPic} 2nd while is random pic`);
+      }
     }
     while(lastPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
+      console.log(`${randomPic} 2nd while is random pic`);
     }
     currentPics.push(randomPic);
     pics[randomPic].timesDisplayed++;
-    console.log(currentPics);
-    console.log(`${pics[randomPic].timesDisplayed++} I am times diplayed ${pics[randomPic].name}`);
-
+    // console.log(currentPics);
+    // console.log(`${pics[randomPic].timesDisplayed++} I am times diplayed ${pics[randomPic].name}`);
   }
-  console.log(currentPics);
+
+  // console.log(currentPics);
 }
 
 //adds an img to picDiv
@@ -95,9 +103,11 @@ function displayPics(){
 function render(){
   populatePics();
   displayPics();
-
+  console.log(`${currentPics} Is Current`);
   //Moves currentPics to lastPics and leaves currentPics empty
   lastPics = currentPics.splice('');
+  console.log(`${currentPics} Is Current`);
+  console.log(`${lastPics} Is last`);
 }
 
 
@@ -124,13 +134,25 @@ new Pic('water-can', 'jpg');
 new Pic('wine-glass', 'jpg');
 console.log(pics);
 
+
 render();
 
-picDiv.addEventListener('click', function(){
-  picDiv.innerHTML='';
-  render();
-});
-
+// loops to count how many inputs have been taken.
+// for(var i = 24; i > 0; i--){
+  // listens for a click in the pic div determins which pic was clicked and increments timesClicked in the pics property
+  // clears the div
+  // renders new pics
+  picDiv.addEventListener('click', function(){
+    var picName = event.target.title;
+    for(var j = 0; j<pics.lenght; j++){
+      if(picName === pics[j].name){
+        pics[j].timesClicked++;
+      }
+    }
+    picDiv.innerHTML='';
+    render();
+  });
+// }
 
 console.log(pics);
 

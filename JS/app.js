@@ -3,27 +3,18 @@
 
 
 /* 
-selects three random photos
-displays them side by side
+***selects three random photos
+CSS______displays them side by side
 each image registers clicks, track the clicks return percentage
 upon a click three new images should appear
 
-construct an array of picture objects
-    function that loops over contents of a given folder
-    each file is pushed through the constructor
-        constructor that holds
-            name
-            timesClicked
-            timesDisplayed
-            percentClicked
-            percentDisplayed
 
-choose three pics at random form pics array
-    function that limits math. random to length of chosen array
-    for loop that iteragtes through math.random 3 times
-    each time pushing the corresponding oject to currentPics array.
-    timesDisplayed is incremented for each object in array
-        Pics are then pushed to DOM
+******chooses three pics at random form pics array
+        function that limits math. random to length of chosen array
+        for loop that iteragtes through math.random 3 times
+        each time pushing the corresponding oject to currentPics array.
+        
+        
 
 When a picture is clicked
     timesClicked propety for that object increments
@@ -40,37 +31,76 @@ function that calculates pecentage clicked and percentage displayed is called
 
 */
 var pics = [];
+var currentPics = [];
+var lastPics = [];
+var picDiv = document.getElementById('picDiv');
 
-//Object Constructor
+//Object Constructor: constructs an array of picture objects
+//  function that loops over contents of a given folder
+//      each file is pushed through the constructor
+//         constructor that holds
+//             name
+//             timesClicked
+//             timesDisplayed
+//             percentClicked
+//             percentDisplayed
+
 function Pic(fileName, fileType){//requires string
   this.name = fileName;
-  this.filepath = `./image/${fileName}.${fileType}`;
-  this.timesClicked;
-  this.timesDisplayed;
-  this.percentClicked;
-  this.percentDisplayed;
+  this.filepath = `./images/${fileName}.${fileType}`;
+  this.timesClicked = 0;
+  this.timesDisplayed = 0;
+  this.percentClicked = 0;
+  this.percentDisplayed = 0;
   pics.push(this);
 }
 
+//Random number generator
+function random(min, max){
+  return Math.floor(Math.random() * (min + max-1 ) + min );
+}
+
+//Pushes new Pics into currentPics Array
+function populatePics(){
+  for(var i = 0; i < 3; i++){
+    var randomPic = random(0, pics.length-1);
+    while(currentPics.includes(randomPic)){
+      randomPic = random(0, pics.length-1);
+    }
+    while(lastPics.includes(randomPic)){
+      randomPic = random(0, pics.length-1);
+    }
+    currentPics.push(randomPic);
+    pics[randomPic].timesDisplayed++;
+    console.log(currentPics);
+    console.log(`${pics[randomPic].timesDisplayed++} I am times diplayed ${pics[randomPic].name}`);
+
+  }
+  console.log(currentPics);
+}
+
+//adds an img to picDiv
+function displayPics(){
+  // document.getElementById('picDiv').innerHTML='';
+  for(var i = 0 ; i < currentPics.length; i++){
+    var img = document.createElement('img');
+    img.setAttribute('id', `pic${[i+1]}`);
+    img.setAttribute('src', `${pics[currentPics[i]].filepath}`);
+    img.setAttribute('alt', `${pics[currentPics[i]].name}`);
+    picDiv.appendChild(img);
+  }
+}
+
+// Puts new images on page
+function render(){
+  populatePics();
+  displayPics();
+
+  //Moves currentPics to lastPics and leaves currentPics empty
+  lastPics = currentPics.splice('');
+}
 
 
-
-
-
-// //adds an img to picDiv
-// function displayPics(fileName, fileType){
-//   var div = document.getElementById('picDiv');
-//   var img = document.createElement('img');
-//   img.setAttribute('id', 'pic1');
-//   img.setAttribute('src', `./images/${fileName}.${fileType}`);
-//   img.setAttribute('alt', `${fileName}`);
-//   div.appendChild(img);
-// }
-
-
-// for(var i = 0; i < pics.length; i++){
-
-// }
 
 new Pic('bag', 'jpg');
 new Pic('banana', 'jpg');
@@ -86,16 +116,24 @@ new Pic('pen', 'jpg');
 new Pic('pet-sweep', 'jpg');
 new Pic('scissors', 'jpg');
 new Pic('shark', 'jpg');
-new Pic('sweep', 'jpg');
+new Pic('sweep', 'png');
 new Pic('tauntaun', 'jpg');
 new Pic('unicorn', 'jpg');
 new Pic('usb', 'gif');
 new Pic('water-can', 'jpg');
 new Pic('wine-glass', 'jpg');
+console.log(pics);
+
+render();
+
+picDiv.addEventListener('click', function(){
+  picDiv.innerHTML='';
+  render();
+});
+
 
 console.log(pics);
 
-// displayPics('bag.jpg');
-// displayPics('usb.gif');
+
 
 

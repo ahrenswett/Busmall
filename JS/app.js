@@ -34,6 +34,10 @@ var pics = [];
 var currentPics = [];
 var lastPics = [];
 var picDiv = document.getElementById('picDiv');
+var pic1 = document.getElementById('pic1');
+var pic2 = document.getElementById('pic2');
+var pic3 = document.getElementById('pic3');
+
 
 //Object Constructor: constructs an array of picture objects
 //  function that loops over contents of a given folder
@@ -59,45 +63,36 @@ function Pic(fileName, fileType){//requires string
 function random(min, max){
   return Math.floor(Math.random() * (min + max-1 ) + min );
 }
-
 //Pushes new Pics into currentPics Array
 function populatePics(){
   for(var i = 0; i < 3; i++){
     var randomPic = random(0, pics.length-1);
-    console.log(`${randomPic} is random pic`);
-    console.log(`${currentPics} Is Current`);
     while(currentPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
-      console.log(`${randomPic} first while is random pic`);
-      while(lastPics.includes(randomPic)){
-        randomPic = random(0, pics.length-1);
-        console.log(`${randomPic} 2nd while is random pic`);
-      }
     }
     while(lastPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
-      console.log(`${randomPic} 2nd while is random pic`);
+      while(currentPics.includes(randomPic)){
+        randomPic = random(0, pics.length-1);
+      }
     }
     currentPics.push(randomPic);
     pics[randomPic].timesDisplayed++;
-    // console.log(currentPics);
-    // console.log(`${pics[randomPic].timesDisplayed++} I am times diplayed ${pics[randomPic].name}`);
   }
 
   // console.log(currentPics);
 }
-
+console.log(currentPics);
 //adds an img to picDiv
 function displayPics(){
-  // document.getElementById('picDiv').innerHTML='';
-  for(var i = 0 ; i < currentPics.length; i++){
-    var img = document.createElement('img');
-    img.setAttribute('id', `pic${[i+1]}`);
-    img.setAttribute('src', `${pics[currentPics[i]].filepath}`);
-    img.setAttribute('alt', `${pics[currentPics[i]].name}`);
-    picDiv.appendChild(img);
+  var picture = [pic1,pic2,pic3];
+ // for(var i = 0; i<picture.length; i++){
+    console.log(pics[currentPics[0]].fileName);
+    pic1.src = pics[currentPics[0]].fileName;
+    pic1.title = pics[currentPics[0]].name;
+    pic1.alt = pics[currentPics[0]].name;
   }
-}
+// }
 
 // Puts new images on page
 function render(){
@@ -142,11 +137,13 @@ render();
   // listens for a click in the pic div determins which pic was clicked and increments timesClicked in the pics property
   // clears the div
   // renders new pics
-  picDiv.addEventListener('click', function(){
-    var picName = event.target.title;
+  picDiv.addEventListener('click', function(e){
+    console.log(event.target);
+    var picName = e.target.img;
     for(var j = 0; j<pics.lenght; j++){
       if(picName === pics[j].name){
         pics[j].timesClicked++;
+        console.log(pics[j].timesClicked);
       }
     }
     picDiv.innerHTML='';
@@ -155,7 +152,3 @@ render();
 // }
 
 console.log(pics);
-
-
-
-

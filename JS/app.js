@@ -37,7 +37,7 @@ var picDiv = document.getElementById('picDiv');
 var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
 var pic3 = document.getElementById('pic3');
-
+var votes = 25;
 
 //Object Constructor: constructs an array of picture objects
 //  function that loops over contents of a given folder
@@ -59,14 +59,18 @@ function Pic(fileName, fileType){//requires string
   pics.push(this);
 }
 
+
 //Random number generator
 function random(min, max){
   return Math.floor(Math.random() * (min + max-1 ) + min );
 }
+
+
 //Pushes new Pics into currentPics Array
 function populatePics(){
   for(var i = 0; i < 3; i++){
     var randomPic = random(0, pics.length-1);
+    console.log(pics.length-1);
     while(currentPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
     }
@@ -77,22 +81,18 @@ function populatePics(){
       }
     }
     currentPics.push(randomPic);
-    pics[randomPic].timesDisplayed++;
   }
-
-  // console.log(currentPics);
 }
-console.log(currentPics);
+
+
 //adds an img to picDiv
 function displayPics(){
   var picture = [pic1,pic2,pic3];
   for(var i = 0; i<picture.length; i++){
-    console.log(pics[currentPics[i]].filepath);
     picture[i].src = pics[currentPics[i]].filepath;
     picture[i].title = pics[currentPics[i]].name;
     picture[i].alt = pics[currentPics[i]].name;
-    
-
+    pics[currentPics[i]].timesDisplayed++;
   }
 }
 
@@ -131,23 +131,58 @@ console.log(pics);
 
 render();
 
-// loops to count how many inputs have been taken.
-// for(var i = 24; i > 0; i--){
-// listens for a click in the pic div determins which pic was clicked and increments timesClicked in the pics property
-// clears the div
-// renders new pics
-picDiv.addEventListener('click', function(e){
-  console.log(event.target);
+picDiv.addEventListener('click', handleClick);
+
+function handleClick(e){
+  
   var picName = e.target.title;
+  
+  if(e.target.id === 'picDiv')
+    alert('Click A Picture');
+  
   for(var j = 0; j<pics.length; j++){
     if(picName === pics[j].name){
       pics[j].timesClicked++;
+      votes--;
       console.log(pics[j]);
     }
   }
   lastPics = currentPics.splice('');
+
+  if(votes===0){
+    picDiv.removeEventListener('click', handleClick);
+    picDiv.innerHTML='';
+    // *********************trying to get the percentages to work
+    console.log(pics[1].timesClicked);
+    console.log(pics[1].timesDisplayed);
+    console.log(pics[1].timesDisplayed / pics[1].timesClicked);
+    console.log(pics[1].timesClicked / pics[1].timesDisplayed);
+    var head = document.getElementById('head');
+    head.innerHTML ='Thank you. Here are your stats.';
+
+    
+    var pEl = document.createElement('p');
+   
+    for(var i = 0; i < pics.length; i++){
+      pEl.textContent=`Thanks for mock-shopping with busmall!! 
+      The ${pics[i].name} product was  displayed ${pics[i].timesDisplayed} times.
+      you chose it ${pics[i].timesClicked} times
+      you chose it ${Math.floor(pics[i].timesClicked / pics[i].timesDisplayed*100)}`;
+      picDiv.appendChild(pEl);
+
+
+  // Thanks for mock-shopping with busmall!!
+    // The pics[i] product was  displayed pics[1].timesDisplayed times
+    // you chose it pics[i].timesClicked times
+    // you chose it pics[1].timesClicked / pics[1].timesDisplayed 
+    // 
+    }
+
+  }
   render();
-});
-// }
+}
 
 console.log(pics);
+// function renderStats(){
+   
+// }

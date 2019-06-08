@@ -86,13 +86,15 @@ console.log(currentPics);
 //adds an img to picDiv
 function displayPics(){
   var picture = [pic1,pic2,pic3];
- // for(var i = 0; i<picture.length; i++){
-    console.log(pics[currentPics[0]].fileName);
-    pic1.src = pics[currentPics[0]].fileName;
-    pic1.title = pics[currentPics[0]].name;
-    pic1.alt = pics[currentPics[0]].name;
+  for(var i = 0; i<picture.length; i++){
+    console.log(pics[currentPics[i]].filepath);
+    picture[i].src = pics[currentPics[i]].filepath;
+    picture[i].title = pics[currentPics[i]].name;
+    picture[i].alt = pics[currentPics[i]].name;
+    
+
   }
-// }
+}
 
 // Puts new images on page
 function render(){
@@ -100,9 +102,6 @@ function render(){
   displayPics();
   console.log(`${currentPics} Is Current`);
   //Moves currentPics to lastPics and leaves currentPics empty
-  lastPics = currentPics.splice('');
-  console.log(`${currentPics} Is Current`);
-  console.log(`${lastPics} Is last`);
 }
 
 
@@ -139,14 +138,14 @@ render();
   // renders new pics
   picDiv.addEventListener('click', function(e){
     console.log(event.target);
-    var picName = e.target.img;
+    var picName = e.target.title;
     for(var j = 0; j<pics.lenght; j++){
       if(picName === pics[j].name){
         pics[j].timesClicked++;
         console.log(pics[j].timesClicked);
       }
     }
-    picDiv.innerHTML='';
+    lastPics = currentPics.splice('');
     render();
   });
 // }

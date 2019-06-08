@@ -7,3 +7,9 @@ h1{
     font-size: 2em;
     font-family: 'Times New Roman', Times, serif;
 }
+
+div img{
+    height: 30%;
+    margin: 2em;
+    display: inline-block;
+}

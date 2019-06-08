@@ -133,21 +133,21 @@ render();
 
 // loops to count how many inputs have been taken.
 // for(var i = 24; i > 0; i--){
-  // listens for a click in the pic div determins which pic was clicked and increments timesClicked in the pics property
-  // clears the div
-  // renders new pics
-  picDiv.addEventListener('click', function(e){
-    console.log(event.target);
-    var picName = e.target.title;
-    for(var j = 0; j<pics.lenght; j++){
-      if(picName === pics[j].name){
-        pics[j].timesClicked++;
-        console.log(pics[j].timesClicked);
-      }
+// listens for a click in the pic div determins which pic was clicked and increments timesClicked in the pics property
+// clears the div
+// renders new pics
+picDiv.addEventListener('click', function(e){
+  console.log(event.target);
+  var picName = e.target.title;
+  for(var j = 0; j<pics.length; j++){
+    if(picName === pics[j].name){
+      pics[j].timesClicked++;
+      console.log(pics[j]);
     }
-    lastPics = currentPics.splice('');
-    render();
-  });
+  }
+  lastPics = currentPics.splice('');
+  render();
+});
 // }
 
 console.log(pics);

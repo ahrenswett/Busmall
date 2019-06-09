@@ -1,0 +1,39 @@
+body{
+    margin: auto;
+    background-image: url("../images/oldtv.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+h1{
+    margin-top: 3em;
+    margin-right: 5em;
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: white;
+}
+
+#picDiv{
+    
+    background-image: url("../images/oldtv.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    
+}
+div img{
+    float: left;
+    height: 30%;
+    margin-top: 17em;
+    margin-left: 10em;
+}
+ul{
+    margin: 20em 0 0 0;
+}
+li{
+    margin: 0 0 3em 15em;
+}

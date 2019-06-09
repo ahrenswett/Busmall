@@ -32,7 +32,6 @@ function that calculates pecentage clicked and percentage displayed is called
 */
 var pics = [];
 var currentPics = [];
-var lastPics = [];
 var picDiv = document.getElementById('picDiv');
 var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
@@ -62,25 +61,34 @@ function Pic(fileName, fileType){//requires string
 
 //Random number generator
 function random(min, max){
-  return Math.floor(Math.random() * (min + max-1 ) + min );
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
 //Pushes new Pics into currentPics Array
 function populatePics(){
+
   for(var i = 0; i < 3; i++){
     var randomPic = random(0, pics.length-1);
-    console.log(pics.length-1);
     while(currentPics.includes(randomPic)){
       randomPic = random(0, pics.length-1);
     }
-    while(lastPics.includes(randomPic)){
-      randomPic = random(0, pics.length-1);
-      while(currentPics.includes(randomPic)){
-        randomPic = random(0, pics.length-1);
-      }
+    currentPics.unshift(randomPic);
+console.log('unshift ' + randomPic);
+    if(currentPics.length > 6){
+      currentPics.pop(3);
     }
-    currentPics.push(randomPic);
+
+
+
+
+  //   while(lastPics.includes(randomPic)){
+  //     randomPic = random(0, pics.length-1);
+  //     while(currentPics.includes(randomPic)){
+  //       randomPic = random(0, pics.length-1);
+  //     }
+  //   }
+  //   
   }
 }
 
@@ -147,42 +155,101 @@ function handleClick(e){
       console.log(pics[j]);
     }
   }
-  lastPics = currentPics.splice('');
-
   if(votes===0){
     picDiv.removeEventListener('click', handleClick);
     picDiv.innerHTML='';
     // *********************trying to get the percentages to work
-    console.log(pics[1].timesClicked);
-    console.log(pics[1].timesDisplayed);
-    console.log(pics[1].timesDisplayed / pics[1].timesClicked);
-    console.log(pics[1].timesClicked / pics[1].timesDisplayed);
     var head = document.getElementById('head');
     head.innerHTML ='Thank you. Here are your stats.';
+    renderChart();
+    // var ulEl = document.createElement('ul');
+    // picDiv.appendChild(ulEl);
 
-    
-    var pEl = document.createElement('p');
-   
-    for(var i = 0; i < pics.length; i++){
-      pEl.textContent=`Thanks for mock-shopping with busmall!! 
-      The ${pics[i].name} product was  displayed ${pics[i].timesDisplayed} times.
-      you chose it ${pics[i].timesClicked} times
-      you chose it ${Math.floor(pics[i].timesClicked / pics[i].timesDisplayed*100)}`;
-      picDiv.appendChild(pEl);
+    // var liEl;
 
-
-  // Thanks for mock-shopping with busmall!!
-    // The pics[i] product was  displayed pics[1].timesDisplayed times
-    // you chose it pics[i].timesClicked times
-    // you chose it pics[1].timesClicked / pics[1].timesDisplayed 
-    // 
-    }
+    // for(var i = 0; i < pics.length; i++){
+    //   liEl = document.createElement('li')
+    //   liEl.textContent=`Thanks for mock-shopping with busmall!! 
+    //   You chose the ${pics[i].name} product ${Math.floor(pics[i].timesClicked / pics[i].timesDisplayed*100)} % of the time it was diplayed`;
+    //   ulEl.appendChild(liEl);
+    // }
 
   }
   render();
 }
 
-console.log(pics);
-// function renderStats(){
-   
-// }
+
+
+function renderChart(){
+  var picName = [];
+  var timesVoted = [];
+
+  for(var i = 0; i<pics.length; i++){
+    picName.push(pics[i].name);
+    timesVoted.push(pics[i].timesClicked);
+  }
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: picName,
+      datasets: [{
+        label: '# of Votes',
+        data: timesVoted,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1,
+        maintainAspectRatio: true,
+      }]
+    },
+    maintainAspectRatio: true,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}

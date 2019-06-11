@@ -175,7 +175,9 @@ function handleClick(e){
     // }
 
   }
-  render();
+  else{
+    render();
+  }
 }
 
 

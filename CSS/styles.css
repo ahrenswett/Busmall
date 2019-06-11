@@ -38,9 +38,9 @@ li{
     margin: 0 0 3em 15em;
 }
 
-.chart-container {
-    position: inherit;
-    margin: auto;
-    height: 80vh;
-    width: 80vw;
-  }
+#fancyChart{
+  position: relative;
+  left: 375px;
+  color: black;
+
+}

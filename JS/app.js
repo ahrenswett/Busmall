@@ -181,7 +181,6 @@ function handleClick(e){
 }
 
 
-
 function renderChart(){
   var picName = [];
   var timesVoted = [];
@@ -192,7 +191,7 @@ function renderChart(){
   }
 
   var ctx = document.getElementById('myChart').getContext('2d');
-  new Chart(ctx, {
+  var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
       labels: picName,
@@ -200,58 +199,64 @@ function renderChart(){
         label: '# of Votes',
         data: timesVoted,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(28, 28, 28, 0.8)',
+          'rgba(38, 38, 38, 0.8)',
+          'rgba(48, 48, 48, 0.8)',
+          'rgba(58, 58, 58, 0.8)',
+          'rgba(68, 68, 68, 0.8)',
+          'rgba(78, 78, 78, 0.8)',
+          'rgba(28, 28, 28, 0.8)',
+          'rgba(38, 38, 38, 0.8)',
+          'rgba(48, 48, 48, 0.8)',
+          'rgba(58, 58, 58, 0.8)',
+          'rgba(68, 68, 68, 0.8)',
+          'rgba(78, 78, 78, 0.8)',
+          'rgba(28, 28, 28, 0.8)',
+          'rgba(38, 38, 38, 0.8)',
+          'rgba(48, 48, 48, 0.8)',
+          'rgba(58, 58, 58, 0.8)',
+          'rgba(68, 68, 68, 0.8)',
+          'rgba(78, 78, 78, 0.8)',
+          'rgba(88, 88, 88, 0.8)',
+          'rgba(98, 98, 98, 0.8)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
+          'rgba(0,0,0)',
         ],
         borderWidth: 1,
-        maintainAspectRatio: true,
       }]
     },
-    maintainAspectRatio: true,
     options: {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
+      responsive: true,
+      maintainAspectRatio: false,
+      labels:{
+        legend: {
+
+
+          fontColor: 'black',
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
           }
-        }]
+        }
       }
     }
   });
+  myChart.canvas.parentNode.style.height = '300px';
+  myChart.canvas.parentNode.style.width = '500px';
 }

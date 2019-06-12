@@ -38,7 +38,7 @@ function Pic(fileName, fileType){//requires string
 // on Page load get stored data
 function retrieveStoredData(key){
   var storedVoteData = localStorage.getItem(key);
-  JSON.parse(storedVoteData);
+  storedVoteData = JSON.parse(storedVoteData);
   for(var i = 0; i < storedVoteData.length; i++){
     pics.push(storedVoteData[i]);
   }
@@ -47,7 +47,7 @@ function retrieveStoredData(key){
 // loop over data and generate the items agian or initialize and push to pics array
 
 function storeData(key, someArray){
-  var voteData = localStorage.setItem(key, JSON.stringify(someArray));
+  localStorage.setItem(key, JSON.stringify(someArray));
 }
 
 //Random number generator
@@ -69,17 +69,6 @@ function populatePics(){
     if(currentPics.length > 6){
       currentPics.pop(3);
     }
-
-
-
-
-  //   while(lastPics.includes(randomPic)){
-  //     randomPic = random(0, pics.length-1);
-  //     while(currentPics.includes(randomPic)){
-  //       randomPic = random(0, pics.length-1);
-  //     }
-  //   }
-  //   
   }
 }
 
@@ -124,7 +113,7 @@ function handleClick(e){
     var head = document.getElementById('head');
     head.innerHTML ='Thank you. Here are your stats.';
     renderChart();
-    storeData('data', pics);
+    storeData('voteData', pics);
     // var ulEl = document.createElement('ul');
     // picDiv.appendChild(ulEl);
 
@@ -227,7 +216,7 @@ function renderChart(){
 }
 
 if(localStorage.length > 0){
-  retrieveStoredData('data');
+  retrieveStoredData('voteData');
 
 }else{
 

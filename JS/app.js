@@ -37,6 +37,8 @@ var pic1 = document.getElementById('pic1');
 var pic2 = document.getElementById('pic2');
 var pic3 = document.getElementById('pic3');
 var votes = 25;
+var bestItemVotes = 0;
+var bestItem;
 
 //Object Constructor: constructs an array of picture objects
 //  function that loops over contents of a given folder
@@ -188,6 +190,10 @@ function renderChart(){
   for(var i = 0; i<pics.length; i++){
     picName.push(pics[i].name);
     timesVoted.push(pics[i].timesClicked);
+    if(pics[i].timesClicked > bestItemVotes){
+      bestItemVotes = pics[i].timesClicked;
+      bestItem = pics[i].name;
+    }
   }
 
   var ctx = document.getElementById('myChart').getContext('2d');
@@ -197,10 +203,10 @@ function renderChart(){
     data: {
       labels: picName,
       datasets: [{
-        label: '# of Votes',
+        label: `you like ${bestItem}`,
         data: timesVoted,
         backgroundColor: [
-          'rgba(28, 28, 28, 0.8)',
+          'rgba(300,308, 28, 0.8)',
           'rgba(38, 38, 38, 0.8)',
           'rgba(48, 48, 48, 0.8)',
           'rgba(58, 58, 58, 0.8)',

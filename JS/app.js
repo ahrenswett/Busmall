@@ -255,6 +255,6 @@ function renderChart(){
       }
     }
   });
-  myChart.canvas.parentNode.style.height = '300px';
-  myChart.canvas.parentNode.style.width = '500px';
+  myChart.canvas.parentNode.style.height = '500px';
+  myChart.canvas.parentNode.style.width = '800px';
 }

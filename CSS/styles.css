@@ -13,7 +13,6 @@ h1{
     text-align: center;
     font-size: 2em;
     font-family: 'Times New Roman', Times, serif;
-    background-color: white;
 }
 
 #picDiv{
@@ -40,7 +39,7 @@ li{
 
 #fancyChart{
   position: relative;
-  left: 375px;
+  left: 220px;
   color: black;
 
 }

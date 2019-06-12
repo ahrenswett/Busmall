@@ -1,35 +1,6 @@
 'use strict';
 
 
-
-/* 
-***selects three random photos
-CSS______displays them side by side
-each image registers clicks, track the clicks return percentage
-upon a click three new images should appear
-
-
-******chooses three pics at random form pics array
-        function that limits math. random to length of chosen array
-        for loop that iteragtes through math.random 3 times
-        each time pushing the corresponding oject to currentPics array.
-        
-        
-
-When a picture is clicked
-    timesClicked propety for that object increments
-    the whole array is pushed to a new array called lastPics
-
-function to check to see what pics lastPics contains
-function to genetrate new currentPics exculding any pics in lastPics
-after 25 iterations event listener is turned off
-function that calculates pecentage clicked and percentage displayed is called
-
-    ****** timesClicked/timesDisplayed = pecentClicked
-    ****** timedDSisplayed/25 = percentDisplayed
-
-
-*/
 var pics = [];
 var currentPics = [];
 var picDiv = document.getElementById('picDiv');
@@ -60,6 +31,24 @@ function Pic(fileName, fileType){//requires string
   pics.push(this);
 }
 
+//to localStorage
+
+//  i can either  store the entire object or store the name and a votes in a seperate array to stringify.
+
+// on Page load get stored data
+function retrieveStoredData(key){
+  var storedVoteData = localStorage.getItem(key);
+  JSON.parse(storedVoteData);
+  for(var i = 0; i < storedVoteData.length; i++){
+    pics.push(storedVoteData[i]);
+  }
+
+}
+// loop over data and generate the items agian or initialize and push to pics array
+
+function storeData(key, someArray){
+  var voteData = localStorage.setItem(key, JSON.stringify(someArray));
+}
 
 //Random number generator
 function random(min, max){

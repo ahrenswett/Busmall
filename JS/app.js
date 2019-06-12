@@ -191,6 +191,7 @@ function renderChart(){
   }
 
   var ctx = document.getElementById('myChart').getContext('2d');
+  Chart.defaults.global.defaultFontColor = 'black';
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -243,9 +244,6 @@ function renderChart(){
       maintainAspectRatio: false,
       labels:{
         legend: {
-
-
-          fontColor: 'black',
           scales: {
             yAxes: [{
               ticks: {

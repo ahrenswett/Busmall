@@ -1,35 +1,6 @@
 'use strict';
 
 
-
-/* 
-***selects three random photos
-CSS______displays them side by side
-each image registers clicks, track the clicks return percentage
-upon a click three new images should appear
-
-
-******chooses three pics at random form pics array
-        function that limits math. random to length of chosen array
-        for loop that iteragtes through math.random 3 times
-        each time pushing the corresponding oject to currentPics array.
-        
-        
-
-When a picture is clicked
-    timesClicked propety for that object increments
-    the whole array is pushed to a new array called lastPics
-
-function to check to see what pics lastPics contains
-function to genetrate new currentPics exculding any pics in lastPics
-after 25 iterations event listener is turned off
-function that calculates pecentage clicked and percentage displayed is called
-
-    ****** timesClicked/timesDisplayed = pecentClicked
-    ****** timedDSisplayed/25 = percentDisplayed
-
-
-*/
 var pics = [];
 var currentPics = [];
 var picDiv = document.getElementById('picDiv');
@@ -60,6 +31,24 @@ function Pic(fileName, fileType){//requires string
   pics.push(this);
 }
 
+//to localStorage
+
+//  i can either  store the entire object or store the name and a votes in a seperate array to stringify.
+
+// on Page load get stored data
+function retrieveStoredData(key){
+  var storedVoteData = localStorage.getItem(key);
+  storedVoteData = JSON.parse(storedVoteData);
+  for(var i = 0; i < storedVoteData.length; i++){
+    pics.push(storedVoteData[i]);
+  }
+
+}
+// loop over data and generate the items agian or initialize and push to pics array
+
+function storeData(key, someArray){
+  localStorage.setItem(key, JSON.stringify(someArray));
+}
 
 //Random number generator
 function random(min, max){
@@ -76,21 +65,10 @@ function populatePics(){
       randomPic = random(0, pics.length-1);
     }
     currentPics.unshift(randomPic);
-console.log('unshift ' + randomPic);
+    console.log('unshift ' + randomPic);
     if(currentPics.length > 6){
       currentPics.pop(3);
     }
-
-
-
-
-  //   while(lastPics.includes(randomPic)){
-  //     randomPic = random(0, pics.length-1);
-  //     while(currentPics.includes(randomPic)){
-  //       randomPic = random(0, pics.length-1);
-  //     }
-  //   }
-  //   
   }
 }
 
@@ -114,35 +92,6 @@ function render(){
   //Moves currentPics to lastPics and leaves currentPics empty
 }
 
-
-
-new Pic('bag', 'jpg');
-new Pic('banana', 'jpg');
-new Pic('bathroom', 'jpg');
-new Pic('boots', 'jpg');
-new Pic('breakfast', 'jpg');
-new Pic('bubblegum', 'jpg');
-new Pic('chair', 'jpg');
-new Pic('cthulhu', 'jpg');
-new Pic('dog-duck', 'jpg');
-new Pic('dragon', 'jpg');
-new Pic('pen', 'jpg');
-new Pic('pet-sweep', 'jpg');
-new Pic('scissors', 'jpg');
-new Pic('shark', 'jpg');
-new Pic('sweep', 'png');
-new Pic('tauntaun', 'jpg');
-new Pic('unicorn', 'jpg');
-new Pic('usb', 'gif');
-new Pic('water-can', 'jpg');
-new Pic('wine-glass', 'jpg');
-console.log(pics);
-
-
-render();
-
-picDiv.addEventListener('click', handleClick);
-
 function handleClick(e){
   
   var picName = e.target.title;
@@ -164,6 +113,7 @@ function handleClick(e){
     var head = document.getElementById('head');
     head.innerHTML ='Thank you. Here are your stats.';
     renderChart();
+    storeData('voteData', pics);
     // var ulEl = document.createElement('ul');
     // picDiv.appendChild(ulEl);
 
@@ -264,3 +214,42 @@ function renderChart(){
   myChart.canvas.parentNode.style.height = '500px';
   myChart.canvas.parentNode.style.width = '800px';
 }
+
+if(localStorage.length > 0){
+  retrieveStoredData('voteData');
+
+}else{
+
+  new Pic('bag', 'jpg');
+  new Pic('banana', 'jpg');
+  new Pic('bathroom', 'jpg');
+  new Pic('boots', 'jpg');
+  new Pic('breakfast', 'jpg');
+  new Pic('bubblegum', 'jpg');
+  new Pic('chair', 'jpg');
+  new Pic('cthulhu', 'jpg');
+  new Pic('dog-duck', 'jpg');
+  new Pic('dragon', 'jpg');
+  new Pic('pen', 'jpg');
+  new Pic('pet-sweep', 'jpg');
+  new Pic('scissors', 'jpg');
+  new Pic('shark', 'jpg');
+  new Pic('sweep', 'png');
+  new Pic('tauntaun', 'jpg');
+  new Pic('unicorn', 'jpg');
+  new Pic('usb', 'gif');
+  new Pic('water-can', 'jpg');
+  new Pic('wine-glass', 'jpg');
+  console.log(pics);
+}
+
+render();
+
+picDiv.addEventListener('click', handleClick);
+
+
+
+
+
+
+
